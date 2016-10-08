@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6338BDA41DA8E5B200238C02 /* UIScrollView+YJEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 6338BDA31DA8E5B200238C02 /* UIScrollView+YJEmpty.m */; };
 		63390A6C1D9E49B7005A4848 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 63390A6B1D9E49B7005A4848 /* main.m */; };
 		63390A6F1D9E49B7005A4848 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63390A6E1D9E49B7005A4848 /* AppDelegate.m */; };
 		63390A721D9E49B7005A4848 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63390A711D9E49B7005A4848 /* ViewController.m */; };
@@ -16,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6338BDA21DA8E5B200238C02 /* UIScrollView+YJEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+YJEmpty.h"; sourceTree = "<group>"; };
+		6338BDA31DA8E5B200238C02 /* UIScrollView+YJEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+YJEmpty.m"; sourceTree = "<group>"; };
 		63390A671D9E49B7005A4848 /* YJScrollViewLoadingDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YJScrollViewLoadingDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63390A6B1D9E49B7005A4848 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		63390A6D1D9E49B7005A4848 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -39,6 +42,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6338BDA11DA8E58E00238C02 /* YJScrollViewLoading */ = {
+			isa = PBXGroup;
+			children = (
+				6338BDA21DA8E5B200238C02 /* UIScrollView+YJEmpty.h */,
+				6338BDA31DA8E5B200238C02 /* UIScrollView+YJEmpty.m */,
+			);
+			path = YJScrollViewLoading;
+			sourceTree = "<group>";
+		};
 		63390A5E1D9E49B7005A4848 = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +70,7 @@
 		63390A691D9E49B7005A4848 /* YJScrollViewLoadingDemo */ = {
 			isa = PBXGroup;
 			children = (
+				6338BDA11DA8E58E00238C02 /* YJScrollViewLoading */,
 				63390A6D1D9E49B7005A4848 /* AppDelegate.h */,
 				63390A6E1D9E49B7005A4848 /* AppDelegate.m */,
 				63390A701D9E49B7005A4848 /* ViewController.h */,
@@ -153,6 +166,7 @@
 			files = (
 				63390A721D9E49B7005A4848 /* ViewController.m in Sources */,
 				63390A6F1D9E49B7005A4848 /* AppDelegate.m in Sources */,
+				6338BDA41DA8E5B200238C02 /* UIScrollView+YJEmpty.m in Sources */,
 				63390A6C1D9E49B7005A4848 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,6 +326,7 @@
 				63390A801D9E49B7005A4848 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
