@@ -83,8 +83,6 @@
             for (int i = 0; i < 100; i++) {
                 [self.dataSouce addObject:[NSString stringWithFormat:@"终于有数据的了...%d", i]];
             }
-        }else {// 无数据时
-//            self.tableView.loading = NO;
         }
         
         NSInteger items = 0;
