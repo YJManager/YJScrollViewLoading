@@ -78,7 +78,7 @@
     }
     
     self.tableView.installYJLoading = YES;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (data) {
             for (int i = 0; i < 100; i++) {
                 [self.dataSouce addObject:[NSString stringWithFormat:@"终于有数据的了...%d", i]];

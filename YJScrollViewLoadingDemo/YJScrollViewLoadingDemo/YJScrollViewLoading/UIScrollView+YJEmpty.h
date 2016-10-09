@@ -86,8 +86,8 @@
 
 @interface UIScrollView (YJEmpty)
 
-@property (nonatomic, weak) IBOutlet id<YJEmptyDataSource> emptyDataSource;
-@property (nonatomic, weak) IBOutlet id<YJEmptyDelegate>   emptyDelegate;
+@property (nonatomic, weak) id<YJEmptyDataSource> emptyDataSource;
+@property (nonatomic, weak) id<YJEmptyDelegate>   emptyDelegate;
 @property (nonatomic, readonly, getter=isEmptyViewVisible) BOOL emptyViewVisible;
 
 /** 刷新YJEmptyView */

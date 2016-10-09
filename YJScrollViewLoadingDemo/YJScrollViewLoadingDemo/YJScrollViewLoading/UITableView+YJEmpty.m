@@ -139,9 +139,24 @@ static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
 #pragma mark - YJEmptyDataSetSource
 - (UIView *)emptyViewWithCustomViewInView:(UIScrollView *)scrollView{
     if (self.installYJLoading) {
+        
+        UIView * emptyView = [[UIView alloc] initWithFrame:scrollView.bounds];
         UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         [activityView startAnimating];
-        return activityView;
+        activityView.center = emptyView.center;
+        [emptyView addSubview:activityView];
+        
+        UILabel * loading = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 15)];
+        loading.textAlignment = NSTextAlignmentCenter;
+        loading.text = @"加载中...";
+        loading.font = [UIFont systemFontOfSize:11.0f];
+        
+        CGPoint center = emptyView.center;
+        center.y += 25;
+        loading.center = center;
+        [emptyView addSubview:loading];
+        
+        return emptyView;
     }else {
         return nil;
     }
