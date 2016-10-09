@@ -44,13 +44,13 @@
     self.tableView.tableFooterView = [UIView new];
     [self loadingData:NO];
     
-    // 配置参数
-    //    self.tableView.buttonText = @"再次请求";
-    //    self.tableView.buttonNormalColor = [UIColor redColor];
-    //    self.tableView.buttonHighlightColor = [UIColor yellowColor];
-    //    self.tableView.loadedImageName = @"58x58";
-    //    self.tableView.descriptionText = @"破网络，你还是再请求一次吧";
-    //    self.tableView.dataVerticalOffset = 200;
+//    // 配置参数
+//        self.tableView.buttonText = @"再次请求";
+//        self.tableView.buttonNormalColor = [UIColor redColor];
+//        self.tableView.buttonHighlightColor = [UIColor yellowColor];
+//        self.tableView.loadedImageName = @"noDataDefault.png";
+//        self.tableView.descriptionText = @"你可以尝试再次请求";
+//        self.tableView.dataVerticalOffset = 100;
     
     // 点击响应
     [self.tableView loadingWithTapBlock:^{
@@ -77,11 +77,8 @@
         [self.tableView reloadData];
     }
     
-    // 只需一行代码，我来解放你的代码
     self.tableView.loading = YES;
-    
-    // 模拟延迟
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (data) {
             for (int i = 0; i < 100; i++) {
                 [self.dataSouce addObject:[NSString stringWithFormat:@"终于有数据的了...%d", i]];
@@ -102,6 +99,9 @@
     cell.textLabel.text = self.dataSouce[indexPath.row];
     return cell;
 }
+
+
+
 
 #pragma mark - Lazy
 - (NSMutableArray *)dataSouce{
