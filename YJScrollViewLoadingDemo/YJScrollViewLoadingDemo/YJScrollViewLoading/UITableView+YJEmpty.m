@@ -9,7 +9,6 @@
 #import "UITableView+YJEmpty.h"
 #import <objc/runtime.h>
 
-
 static char const * const kLoadingKey               =  "kLoadingKey";
 static char const * const kLoadedImgNameKey         =  "kLoadedImgNameKey";
 static char const * const kDescriptionTextKey       =  "kDescriptionTextKey";
@@ -134,8 +133,7 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
     return objc_getAssociatedObject(self, &kButtonHighlightColorKey);
 }
 
-#pragma mark - DZNEmptyDataSetSource
-// 返回一个自定义的view（优先级最高）
+#pragma mark - YJEmptyDataSetSource
 - (UIView *)emptyViewWithCustomViewInView:(UIScrollView *)scrollView{
     if (self.loading) {
         UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -146,7 +144,6 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
     }
 }
 
-// 图片
 - (UIImage *)emptyViewImageInView:(UIScrollView *)scrollView{
     if (self.loading) {
         return nil;
@@ -159,7 +156,6 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
     }
 }
 
-// 返回空状态显示title文字，可以返回富文本
 - (NSAttributedString *)emptyViewTitleInView:(UIScrollView *)scrollView{
     if (self.loading) {
         return nil;
@@ -179,7 +175,6 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
     }
 }
 
-// 空状态下的文字详情
 - (NSAttributedString *)emptyViewDetailInView:(UIScrollView *)scrollView{
     if (self.loading) {
         return nil;
@@ -200,7 +195,6 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
     }
 }
 
-// 返回最下面按钮上的文字
 - (NSAttributedString *)emptyViewButtonTitleInView:(UIScrollView *)scrollView forState:(UIControlState)state{
     if (self.loading) {
         return nil;
@@ -220,38 +214,32 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
     }
 }
 
-// 返回试图的垂直位置（调整整个试图的垂直位置）
 - (CGFloat)emptyViewVerticalOffsetInView:(UIScrollView *)scrollView{
     if (self.dataVerticalOffset != 0) {
         return self.dataVerticalOffset;
     }
     return 0.0;
 }
-#pragma mark - DZNEmptyDataSetDelegate Methods
+#pragma mark - YJEmptyDataSetDelegate Methods
 // 返回是否显示空状态的所有组件，默认:YES
 -(BOOL)emptyViewShouldDisplayInView:(UIScrollView *)scrollView{
     return YES;
 }
-// 返回是否允许交互，默认:YES
 - (BOOL)emptyViewShouldAllowTouchInView:(UIScrollView *)scrollView{
     // 只有非加载状态能交互
     return !self.loading;
 }
-// 返回是否允许滚动，默认:NO
 - (BOOL)emptyViewShouldAllowScrollInView:(UIScrollView *)scrollView{
     return NO;
 }
-// 返回是否允许空状态下的图片进行动画，默认:NO
 - (BOOL)emptyViewShouldAnimateImageViewInView:(UIScrollView *)scrollView{
     return YES;
 }
 
-//  点击空状态下的view会调用
 - (void)emptyViewInView:(UIScrollView *)scrollView didClickView:(UIView *)view{
     NSLog(@"Click-View");
 }
 
-// 点击按钮
 - (void)emptyViewInView:(UIScrollView *)scrollView didClickButton:(UIButton *)button{
     if (self.tapBlock) {
         self.tapBlock();
