@@ -151,7 +151,7 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
     if (self.loading) {
         return nil;
     }else {
-        NSString *imageName = @"myCenter_selected";
+        NSString *imageName = @"noDataDefault.png";
         if (self.loadedImageName) {
             imageName = self.loadedImageName;
         }

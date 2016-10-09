@@ -10,10 +10,12 @@
 		630D4E831DA9E07D00E40E3D /* UIView+YJEmptyLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D4E7F1DA9E07D00E40E3D /* UIView+YJEmptyLayout.m */; };
 		630D4E841DA9E07D00E40E3D /* YJEmptyDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D4E821DA9E07D00E40E3D /* YJEmptyDataView.m */; };
 		630D4E871DA9E0A500E40E3D /* UITableView+YJEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D4E861DA9E0A500E40E3D /* UITableView+YJEmpty.m */; };
+		630D4E8C1DA9E50100E40E3D /* YJMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D4E8A1DA9E50100E40E3D /* YJMainViewController.m */; };
+		630D4E8D1DA9E50100E40E3D /* YJMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 630D4E8B1DA9E50100E40E3D /* YJMainViewController.xib */; };
+		630D4E921DA9E95B00E40E3D /* noDataDefault.png in Resources */ = {isa = PBXBuildFile; fileRef = 630D4E911DA9E95B00E40E3D /* noDataDefault.png */; };
 		6338BDA41DA8E5B200238C02 /* UIScrollView+YJEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 6338BDA31DA8E5B200238C02 /* UIScrollView+YJEmpty.m */; };
 		63390A6C1D9E49B7005A4848 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 63390A6B1D9E49B7005A4848 /* main.m */; };
 		63390A6F1D9E49B7005A4848 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63390A6E1D9E49B7005A4848 /* AppDelegate.m */; };
-		63390A721D9E49B7005A4848 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63390A711D9E49B7005A4848 /* ViewController.m */; };
 		63390A751D9E49B7005A4848 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63390A731D9E49B7005A4848 /* Main.storyboard */; };
 		63390A771D9E49B7005A4848 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63390A761D9E49B7005A4848 /* Assets.xcassets */; };
 		63390A7A1D9E49B7005A4848 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63390A781D9E49B7005A4848 /* LaunchScreen.storyboard */; };
@@ -27,14 +29,16 @@
 		630D4E851DA9E0A500E40E3D /* UITableView+YJEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+YJEmpty.h"; sourceTree = "<group>"; };
 		630D4E861DA9E0A500E40E3D /* UITableView+YJEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+YJEmpty.m"; sourceTree = "<group>"; };
 		630D4E881DA9E13200E40E3D /* YJScrollViewLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJScrollViewLoading.h; sourceTree = "<group>"; };
+		630D4E891DA9E50100E40E3D /* YJMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJMainViewController.h; sourceTree = "<group>"; };
+		630D4E8A1DA9E50100E40E3D /* YJMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJMainViewController.m; sourceTree = "<group>"; };
+		630D4E8B1DA9E50100E40E3D /* YJMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YJMainViewController.xib; sourceTree = "<group>"; };
+		630D4E911DA9E95B00E40E3D /* noDataDefault.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noDataDefault.png; sourceTree = "<group>"; };
 		6338BDA21DA8E5B200238C02 /* UIScrollView+YJEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+YJEmpty.h"; sourceTree = "<group>"; };
 		6338BDA31DA8E5B200238C02 /* UIScrollView+YJEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+YJEmpty.m"; sourceTree = "<group>"; };
 		63390A671D9E49B7005A4848 /* YJScrollViewLoadingDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YJScrollViewLoadingDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63390A6B1D9E49B7005A4848 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		63390A6D1D9E49B7005A4848 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		63390A6E1D9E49B7005A4848 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		63390A701D9E49B7005A4848 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		63390A711D9E49B7005A4848 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		63390A741D9E49B7005A4848 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		63390A761D9E49B7005A4848 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63390A791D9E49B7005A4848 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -68,6 +72,14 @@
 				630D4E821DA9E07D00E40E3D /* YJEmptyDataView.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		630D4E8E1DA9E8AF00E40E3D /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				630D4E911DA9E95B00E40E3D /* noDataDefault.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		6338BDA11DA8E58E00238C02 /* YJScrollViewLoading */ = {
@@ -106,8 +118,9 @@
 				6338BDA11DA8E58E00238C02 /* YJScrollViewLoading */,
 				63390A6D1D9E49B7005A4848 /* AppDelegate.h */,
 				63390A6E1D9E49B7005A4848 /* AppDelegate.m */,
-				63390A701D9E49B7005A4848 /* ViewController.h */,
-				63390A711D9E49B7005A4848 /* ViewController.m */,
+				630D4E891DA9E50100E40E3D /* YJMainViewController.h */,
+				630D4E8A1DA9E50100E40E3D /* YJMainViewController.m */,
+				630D4E8B1DA9E50100E40E3D /* YJMainViewController.xib */,
 				63390A6A1D9E49B7005A4848 /* Supporting Files */,
 			);
 			path = YJScrollViewLoadingDemo;
@@ -116,6 +129,7 @@
 		63390A6A1D9E49B7005A4848 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				630D4E8E1DA9E8AF00E40E3D /* Images */,
 				63390A731D9E49B7005A4848 /* Main.storyboard */,
 				63390A761D9E49B7005A4848 /* Assets.xcassets */,
 				63390A781D9E49B7005A4848 /* LaunchScreen.storyboard */,
@@ -184,8 +198,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				630D4E8D1DA9E50100E40E3D /* YJMainViewController.xib in Resources */,
 				63390A7A1D9E49B7005A4848 /* LaunchScreen.storyboard in Resources */,
 				63390A771D9E49B7005A4848 /* Assets.xcassets in Resources */,
+				630D4E921DA9E95B00E40E3D /* noDataDefault.png in Resources */,
 				63390A751D9E49B7005A4848 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,7 +213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63390A721D9E49B7005A4848 /* ViewController.m in Sources */,
+				630D4E8C1DA9E50100E40E3D /* YJMainViewController.m in Sources */,
 				630D4E871DA9E0A500E40E3D /* UITableView+YJEmpty.m in Sources */,
 				630D4E831DA9E07D00E40E3D /* UIView+YJEmptyLayout.m in Sources */,
 				63390A6F1D9E49B7005A4848 /* AppDelegate.m in Sources */,
