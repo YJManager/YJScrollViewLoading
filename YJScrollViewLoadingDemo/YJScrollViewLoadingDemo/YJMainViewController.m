@@ -27,8 +27,13 @@
     
     self.navigationItem.title = @"YJScrollViewLoading";
     
-    UIButton * btn = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    btn.frame = CGRectMake(0, 0, 60, 40);
+    UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, 70, 30);
+    btn.backgroundColor = [UIColor orangeColor];
+    [btn.layer setCornerRadius:5.0f];
+    btn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+    [btn setTitle:@"无数据" forState:UIControlStateNormal];
+    [btn setTitle:@"有数据" forState:UIControlStateSelected];
     [btn addTarget:self action:@selector(btnActonClick:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = rightItem;
@@ -54,12 +59,15 @@
 }
 
 - (void)btnActonClick:(UIButton *)btn{
+    btn.selected = !btn.selected;
+
     if (btn.selected) {
         [self loadingData:YES];
+        btn.backgroundColor = [UIColor redColor];
     }else{
+        btn.backgroundColor = [UIColor orangeColor];
         [self loadingData:NO];
     }
-    btn.selected = !btn.selected;
 }
 
 -(void)loadingData:(BOOL)data{

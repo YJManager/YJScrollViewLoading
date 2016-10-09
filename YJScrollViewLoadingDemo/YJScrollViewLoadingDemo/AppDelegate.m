@@ -20,13 +20,29 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    YJMainViewController * mianVc = [[YJMainViewController alloc] initWithNibName:@"YJMainViewController" bundle:nil];
-    UINavigationController * mainNav = [[UINavigationController alloc] initWithRootViewController:mianVc];
+    YJMainViewController * mainVc = [[YJMainViewController alloc] initWithNibName:@"YJMainViewController" bundle:nil];
+    UINavigationController * mainNav = [[UINavigationController alloc] initWithRootViewController:mainVc];
+    [mainNav.navigationBar setBackgroundImage:[self imageWithColor_Ext:[UIColor lightGrayColor]] forBarMetrics:UIBarMetricsDefault];
     self.window.rootViewController = mainNav;
     
     [self.window makeKeyAndVisible];
     return YES;
 }
+
+- (UIImage *)imageWithColor_Ext:(UIColor *)color{
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
