@@ -85,9 +85,7 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
 
 #pragma mark - Getter
 -(BOOL)loading{
-    id loadingTmp = objc_getAssociatedObject(self, kLoadingKey);
-    NSNumber * number = (NSNumber *)loadingTmp;
-    return number.unsignedIntegerValue;
+    return [objc_getAssociatedObject(self, kLoadingKey) boolValue];
 }
 
 - (didTapActionBlock)tapBlock{
@@ -98,9 +96,7 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
     return objc_getAssociatedObject(self, kLoadedImgNameKey);
 }
 -(CGFloat)dataVerticalOffset{
-    id temp = objc_getAssociatedObject(self, kDataVerticalOffsetKey);
-    NSNumber *number = temp;
-    return number.floatValue;
+    return [objc_getAssociatedObject(self, kDataVerticalOffsetKey) floatValue];
 }
 -(NSString *)descriptionText{
     return objc_getAssociatedObject(self, kDescriptionTextKey);
