@@ -42,6 +42,7 @@
 - (void)_setUpMainView{
     
     self.tableView.tableFooterView = [UIView new];
+    [self loadingData:NO];
     
     // 配置参数
     //    self.tableView.buttonText = @"再次请求";

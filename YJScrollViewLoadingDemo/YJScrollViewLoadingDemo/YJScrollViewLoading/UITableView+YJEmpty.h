@@ -14,7 +14,6 @@ typedef void (^didTapActionBlock)();
 
 @interface UITableView (YJEmpty) <YJEmptyDataSource, YJEmptyDelegate>
 
-/** 在加载数据前设置为YES(必需)，随后根据数据调整为NO(可选) */
 @property (nonatomic, assign) BOOL loading;
 
 @property (nonatomic, copy)NSString * loadedImageName;    /**< 空状态下显示图片 */
@@ -26,6 +25,8 @@ typedef void (^didTapActionBlock)();
 
 /** 回调 */
 @property(nonatomic, copy) didTapActionBlock tapBlock;
+
+
 - (void)loadingWithTapBlock:(didTapActionBlock)block;
 
 @end

@@ -43,55 +43,38 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
 //    [self swiz_init];
 //}
 
-#pragma mark set Mettod
--(void)setLoading:(BOOL)loading{
-    if (self.loading == loading) {
-        return;
-    }
-    // 这个&loadingKey也可以理解成一个普通的字符串key，用这个key去内存寻址取值
-    objc_setAssociatedObject(self, &kLoadingKey, @(loading), OBJC_ASSOCIATION_ASSIGN);
-    // 一定要放在后面，因为上面的代码在设值，要设置完之后数据源的判断条件才能成立
-    //    if (loading == YES) {// 第一次的时候设置代理
+#pragma mark - Setter 
+- (void)setLoading:(BOOL)loading{
+    if (self.loading == loading) return;
+    
+    objc_setAssociatedObject(self, kLoadingKey, @(loading), OBJC_ASSOCIATION_ASSIGN);
+    
     self.emptyDataSource = self;
     self.emptyDelegate = self;
     [self reloadEmptyView];
-    //    }
-    
-    //    if (loading == NO) {
-    //        [self reloadEmptyDataSet];
-    //    }else {
-    //        __weak __typeof(&*self)weakSelf = self;
-    //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    //            if (loading) {
-    //                if (weakSelf.emptyDataSetVisible) {
-    ////                [weakSelf reloadData];
-    //                    weakSelf.loading = NO;
-    //                }
-    //            }
-    //        });
-    //    }
 }
+
 - (void)setTapBlock:(didTapActionBlock)tapBlock{
-    objc_setAssociatedObject(self, &kTapBlockKey, tapBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, kTapBlockKey, tapBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 -(void)setLoadedImageName:(NSString *)loadedImageName{
-    objc_setAssociatedObject(self, &kLoadedImgNameKey, loadedImageName, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, kLoadedImgNameKey, loadedImageName, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 -(void)setDataVerticalOffset:(CGFloat)dataVerticalOffset{
-    objc_setAssociatedObject(self, &kDataVerticalOffsetKey,@(dataVerticalOffset),OBJC_ASSOCIATION_RETAIN);// 如果是对象，请用RETAIN。坑
+    objc_setAssociatedObject(self, kDataVerticalOffsetKey,@(dataVerticalOffset),OBJC_ASSOCIATION_RETAIN);// 如果是对象，请用RETAIN。坑
 }
 -(void)setDescriptionText:(NSString *)descriptionText{
-    objc_setAssociatedObject(self, &kDescriptionTextKey, descriptionText, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, kDescriptionTextKey, descriptionText, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 -(void)setButtonText:(NSString *)buttonText{
-    objc_setAssociatedObject(self, &kButtonTextKey, buttonText, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, kButtonTextKey, buttonText, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 -(void)setButtonNormalColor:(UIColor *)buttonNormalColor{
-    objc_setAssociatedObject(self, &kButtonNormalColorKey, buttonNormalColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, kButtonNormalColorKey, buttonNormalColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 -(void)setButtonHighlightColor:(UIColor *)buttonHighlightColor{
-    objc_setAssociatedObject(self, &kButtonHighlightColorKey, buttonHighlightColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, kButtonHighlightColorKey, buttonHighlightColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 - (void)loadingWithTapBlock:(didTapActionBlock)block{
     if (self.tapBlock) {
@@ -100,37 +83,36 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
     self.tapBlock = block;
 }
 
-#pragma mark - Geters
+#pragma mark - Getter
 -(BOOL)loading{
-    // 注意，取出的是一个对象，不能直接返回
-    id tmp = objc_getAssociatedObject(self, &kLoadingKey);
-    NSNumber *number = tmp;
+    id loadingTmp = objc_getAssociatedObject(self, kLoadingKey);
+    NSNumber * number = (NSNumber *)loadingTmp;
     return number.unsignedIntegerValue;
 }
 
 - (didTapActionBlock)tapBlock{
-    return objc_getAssociatedObject(self, &kTapBlockKey);
+    return objc_getAssociatedObject(self, kTapBlockKey);
 }
 
 -(NSString *)loadedImageName{
-    return objc_getAssociatedObject(self, &kLoadedImgNameKey);
+    return objc_getAssociatedObject(self, kLoadedImgNameKey);
 }
 -(CGFloat)dataVerticalOffset{
-    id temp = objc_getAssociatedObject(self, &kDataVerticalOffsetKey);
+    id temp = objc_getAssociatedObject(self, kDataVerticalOffsetKey);
     NSNumber *number = temp;
     return number.floatValue;
 }
 -(NSString *)descriptionText{
-    return objc_getAssociatedObject(self, &kDescriptionTextKey);
+    return objc_getAssociatedObject(self, kDescriptionTextKey);
 }
 -(NSString *)buttonText{
-    return objc_getAssociatedObject(self, &kButtonTextKey);
+    return objc_getAssociatedObject(self, kButtonTextKey);
 }
 -(UIColor *)buttonNormalColor{
-    return objc_getAssociatedObject(self, &kButtonNormalColorKey);
+    return objc_getAssociatedObject(self, kButtonNormalColorKey);
 }
 -(UIColor *)buttonHighlightColor{
-    return objc_getAssociatedObject(self, &kButtonHighlightColorKey);
+    return objc_getAssociatedObject(self, kButtonHighlightColorKey);
 }
 
 #pragma mark - YJEmptyDataSetSource
