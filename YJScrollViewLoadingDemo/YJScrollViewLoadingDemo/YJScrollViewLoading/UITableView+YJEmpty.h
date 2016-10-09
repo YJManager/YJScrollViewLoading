@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UIScrollView+YJEmpty.h"
 
-typedef void (^didTapActionBlock)();
+typedef void (^reloadClickActionBlock)();
 
 @interface UITableView (YJEmpty) <YJEmptyDataSource, YJEmptyDelegate>
 
@@ -19,18 +19,17 @@ typedef void (^didTapActionBlock)();
 @property (nonatomic, copy) NSString * loadedImageName;
 /** nodata Title */
 @property (nonatomic, copy) NSString * titleForNoDataView;
+/** detailForNoDataView */
+@property (nonatomic, copy) NSString * detailForNoDataView;
+/** button title */
+@property (nonatomic, copy) NSString * buttonTitle;
+/** buttonNormalColor */
+@property (nonatomic, strong) UIColor * buttonNormalColor;
+/** buttonHighlightColor */
+@property (nonatomic, strong) UIColor * buttonHighlightColor;
+/** tableView Center Offset */
+@property (nonatomic, assign) CGFloat verticalOffsetForNoDataView;
 
-
-@property (nonatomic, copy) NSString * descriptionText;
-@property (nonatomic, copy)NSString *buttonText;          /**< 刷新按钮文字 */
-@property (nonatomic, strong) UIColor *buttonNormalColor;  /**< 按钮Normal状态下文字颜色 */
-@property (nonatomic, strong) UIColor *buttonHighlightColor; /**<  按钮Highlight状态下文字颜色 */
-@property (nonatomic, assign)CGFloat dataVerticalOffset;    /**< tableView中心点为基准点,(基准点＝0) */
-
-/** 回调 */
-@property(nonatomic, copy) didTapActionBlock tapBlock;
-
-
-- (void)loadingWithTapBlock:(didTapActionBlock)block;
+- (void)loadingWithTapBlock:(reloadClickActionBlock)block;
 
 @end

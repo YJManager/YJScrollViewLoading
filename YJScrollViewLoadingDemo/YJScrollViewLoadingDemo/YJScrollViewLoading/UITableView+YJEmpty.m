@@ -12,17 +12,16 @@
 static char const * const kInstallYJLoadingKey      =  "kInstallYJLoadingKey";
 static char const * const kLoadedImgNameKey         =  "kLoadedImgNameKey";
 static char const * const kTitleForNoDataViewKey    =  "kTitleForNoDataViewKey";
-
-
-
-
-
-static char const * const kDescriptionTextKey       =  "kDescriptionTextKey";
-static char const * const kButtonTextKey            =  "kButtonTextKey";
+static char const * const kDetailForNoDataView      =  "kDetailForNoDataView";
+static char const * const kButtonTitleKey           =  "kButtonTitleKey";
 static char const * const kButtonNormalColorKey     =  "kButtonNormalColorKey";
 static char const * const kButtonHighlightColorKey  =  "kButtonHighlightColorKey";
-static char const * const kDataVerticalOffsetKey    =  "kDataVerticalOffsetKey";
-static char const * const kTapBlockKey              =  "kTapBlockKey";
+static char const * const kVOffsetForNoDataViewKey  =  "kVOffsetForNoDataViewKey";
+static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
+
+@interface UITableView ()
+@property(nonatomic, copy) reloadClickActionBlock tapBlock;
+@end
 
 @implementation UITableView (YJEmpty)
 
@@ -48,7 +47,7 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
 //    [self swiz_init];
 //}
 
-#pragma mark - Setter
+#pragma mark - Setter & Getter
 // 1.>>>>>>> install <<<<<<<<<<
 - (void)setInstallYJLoading:(BOOL)installYJLoading{
     if (self.installYJLoading == installYJLoading) return;
@@ -75,64 +74,67 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
 - (void)setTitleForNoDataView:(NSString *)titleForNoDataView{
     objc_setAssociatedObject(self, kTitleForNoDataViewKey, titleForNoDataView, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
-
 - (NSString *)titleForNoDataView{
     return objc_getAssociatedObject(self, kTitleForNoDataViewKey);
 }
 
-
-
-- (void)setTapBlock:(didTapActionBlock)tapBlock{
-    objc_setAssociatedObject(self, kTapBlockKey, tapBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+// 4.>>>>>> kDetailForNoDataView <<<<<<
+- (void)setDetailForNoDataView:(NSString *)detailForNoDataView{
+    objc_setAssociatedObject(self, kDetailForNoDataView, detailForNoDataView, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+- (NSString *)detailForNoDataView{
+    return objc_getAssociatedObject(self, kDetailForNoDataView);
 }
 
+// 5. >>>>>> kButtonTitleKey <<<<<
+- (void)setButtonTitle:(NSString *)buttonTitle{
+    objc_setAssociatedObject(self, kButtonTitleKey, buttonTitle, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+- (NSString *)buttonTitle{
+    return objc_getAssociatedObject(self, kButtonTitleKey);
+}
 
+// 6.>>>>>> kButtonNormalColorKey <<<<<<
 
--(void)setDataVerticalOffset:(CGFloat)dataVerticalOffset{
-    objc_setAssociatedObject(self, kDataVerticalOffsetKey,@(dataVerticalOffset),OBJC_ASSOCIATION_RETAIN);// 如果是对象，请用RETAIN。坑
-}
--(void)setDescriptionText:(NSString *)descriptionText{
-    objc_setAssociatedObject(self, kDescriptionTextKey, descriptionText, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
--(void)setButtonText:(NSString *)buttonText{
-    objc_setAssociatedObject(self, kButtonTextKey, buttonText, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
 -(void)setButtonNormalColor:(UIColor *)buttonNormalColor{
     objc_setAssociatedObject(self, kButtonNormalColorKey, buttonNormalColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+-(UIColor *)buttonNormalColor{
+    return objc_getAssociatedObject(self, kButtonNormalColorKey);
+}
+
+// 7.>>>>>>>>> kButtonHighlightColorKey <<<<<
 -(void)setButtonHighlightColor:(UIColor *)buttonHighlightColor{
     objc_setAssociatedObject(self, kButtonHighlightColorKey, buttonHighlightColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-- (void)loadingWithTapBlock:(didTapActionBlock)block{
+-(UIColor *)buttonHighlightColor{
+    return objc_getAssociatedObject(self, kButtonHighlightColorKey);
+}
+
+// 8.>>>>>>>>> kVOffsetForNoDataViewKey <<<<<
+- (void)setVerticalOffsetForNoDataView:(CGFloat)verticalOffsetForNoDataView{
+    objc_setAssociatedObject(self, kVOffsetForNoDataViewKey, @(verticalOffsetForNoDataView),OBJC_ASSOCIATION_RETAIN);
+}
+- (CGFloat)verticalOffsetForNoDataView{
+    return [objc_getAssociatedObject(self, kVOffsetForNoDataViewKey) floatValue];
+}
+
+// 9.>>>>>>>>> kreloadClickBlockKey <<<<<
+- (void)setTapBlock:(reloadClickActionBlock)tapBlock{
+    objc_setAssociatedObject(self, kreloadClickBlockKey, tapBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+- (reloadClickActionBlock)tapBlock{
+    return objc_getAssociatedObject(self, kreloadClickBlockKey);
+}
+
+#pragma mark - Public API
+- (void)loadingWithTapBlock:(reloadClickActionBlock)block{
     if (self.tapBlock) {
         block = self.tapBlock;
     }
     self.tapBlock = block;
 }
 
-#pragma mark - Getter
-
-
-- (didTapActionBlock)tapBlock{
-    return objc_getAssociatedObject(self, kTapBlockKey);
-}
-
-
--(CGFloat)dataVerticalOffset{
-    return [objc_getAssociatedObject(self, kDataVerticalOffsetKey) floatValue];
-}
--(NSString *)descriptionText{
-    return objc_getAssociatedObject(self, kDescriptionTextKey);
-}
--(NSString *)buttonText{
-    return objc_getAssociatedObject(self, kButtonTextKey);
-}
--(UIColor *)buttonNormalColor{
-    return objc_getAssociatedObject(self, kButtonNormalColorKey);
-}
--(UIColor *)buttonHighlightColor{
-    return objc_getAssociatedObject(self, kButtonHighlightColorKey);
-}
 
 #pragma mark - YJEmptyDataSetSource
 - (UIView *)emptyViewWithCustomViewInView:(UIScrollView *)scrollView{
@@ -183,8 +185,8 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
         return nil;
     }else {
         NSString *text = @"没有数据！您可以尝试重新获取";
-        if (self.descriptionText) {
-            text = self.descriptionText;
+        if (self.detailForNoDataView) {
+            text = self.detailForNoDataView;
         }
         NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
         paragraph.lineBreakMode = NSLineBreakByWordWrapping;
@@ -213,13 +215,13 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
         NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:16.0f],
                                      NSForegroundColorAttributeName: textColor};
         
-        return [[NSAttributedString alloc] initWithString:self.buttonText ? self.buttonText : @"再次刷新" attributes:attributes];
+        return [[NSAttributedString alloc] initWithString:self.buttonTitle ? self.buttonTitle : @"再次刷新" attributes:attributes];
     }
 }
 
 - (CGFloat)emptyViewVerticalOffsetInView:(UIScrollView *)scrollView{
-    if (self.dataVerticalOffset != 0) {
-        return self.dataVerticalOffset;
+    if (self.verticalOffsetForNoDataView != 0) {
+        return self.verticalOffsetForNoDataView;
     }
     return 0.0;
 }
@@ -239,16 +241,11 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
     return YES;
 }
 
-- (void)emptyViewInView:(UIScrollView *)scrollView didClickView:(UIView *)view{
-    NSLog(@"Click-View");
-}
-
 - (void)emptyViewInView:(UIScrollView *)scrollView didClickButton:(UIButton *)button{
     if (self.tapBlock) {
         self.tapBlock();
         [self reloadEmptyView];
     }
-    NSLog(@"Click-Btn");
 }
 
 
