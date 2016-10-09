@@ -9,8 +9,14 @@
 #import "UITableView+YJEmpty.h"
 #import <objc/runtime.h>
 
-static char const * const kLoadingKey               =  "kLoadingKey";
+static char const * const kInstallYJLoadingKey      =  "kInstallYJLoadingKey";
 static char const * const kLoadedImgNameKey         =  "kLoadedImgNameKey";
+static char const * const kTitleForNoDataViewKey    =  "kTitleForNoDataViewKey";
+
+
+
+
+
 static char const * const kDescriptionTextKey       =  "kDescriptionTextKey";
 static char const * const kButtonTextKey            =  "kButtonTextKey";
 static char const * const kButtonNormalColorKey     =  "kButtonNormalColorKey";
@@ -43,23 +49,45 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
 //}
 
 #pragma mark - Setter
+// 1.>>>>>>> install <<<<<<<<<<
 - (void)setInstallYJLoading:(BOOL)installYJLoading{
     if (self.installYJLoading == installYJLoading) return;
     
-    objc_setAssociatedObject(self, kLoadingKey, @(installYJLoading), OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, kInstallYJLoadingKey, @(installYJLoading), OBJC_ASSOCIATION_ASSIGN);
     
     self.emptyDataSource = self;
     self.emptyDelegate = self;
     [self reloadEmptyView];
 }
+- (BOOL)installYJLoading{
+    return [objc_getAssociatedObject(self, kInstallYJLoadingKey) boolValue];
+}
+
+// 2.>>>>>>> loadedImage <<<<<<<<<<<
+-(void)setLoadedImageName:(NSString *)loadedImageName{
+    objc_setAssociatedObject(self, kLoadedImgNameKey, loadedImageName, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+-(NSString *)loadedImageName{
+    return objc_getAssociatedObject(self, kLoadedImgNameKey);
+}
+
+// 3.>>>>>>>> titleForNoDataView <<<<<<<
+- (void)setTitleForNoDataView:(NSString *)titleForNoDataView{
+    objc_setAssociatedObject(self, kTitleForNoDataViewKey, titleForNoDataView, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (NSString *)titleForNoDataView{
+    return objc_getAssociatedObject(self, kTitleForNoDataViewKey);
+}
+
+
 
 - (void)setTapBlock:(didTapActionBlock)tapBlock{
     objc_setAssociatedObject(self, kTapBlockKey, tapBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
--(void)setLoadedImageName:(NSString *)loadedImageName{
-    objc_setAssociatedObject(self, kLoadedImgNameKey, loadedImageName, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
+
+
 -(void)setDataVerticalOffset:(CGFloat)dataVerticalOffset{
     objc_setAssociatedObject(self, kDataVerticalOffsetKey,@(dataVerticalOffset),OBJC_ASSOCIATION_RETAIN);// 如果是对象，请用RETAIN。坑
 }
@@ -83,18 +111,13 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
 }
 
 #pragma mark - Getter
-- (BOOL)installYJLoading{
-    return [objc_getAssociatedObject(self, kLoadingKey) boolValue];
 
-}
 
 - (didTapActionBlock)tapBlock{
     return objc_getAssociatedObject(self, kTapBlockKey);
 }
 
--(NSString *)loadedImageName{
-    return objc_getAssociatedObject(self, kLoadedImgNameKey);
-}
+
 -(CGFloat)dataVerticalOffset{
     return [objc_getAssociatedObject(self, kDataVerticalOffsetKey) floatValue];
 }
@@ -140,7 +163,9 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
     }else {
         
         NSString *text = @"没有数据";
-        
+        if (self.titleForNoDataView) {
+            text = self.titleForNoDataView;
+        }
         NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
         paragraph.lineBreakMode = NSLineBreakByWordWrapping;
         paragraph.alignment = NSTextAlignmentCenter;

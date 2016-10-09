@@ -13,10 +13,15 @@ typedef void (^didTapActionBlock)();
 
 @interface UITableView (YJEmpty) <YJEmptyDataSource, YJEmptyDelegate>
 
-@property (nonatomic, assign) BOOL installYJLoading; /**< YES is install YJLoading */
+/** YES is install YJLoading */
+@property (nonatomic, assign) BOOL installYJLoading;
+/** custom Image */
+@property (nonatomic, copy) NSString * loadedImageName;
+/** nodata Title */
+@property (nonatomic, copy) NSString * titleForNoDataView;
 
-@property (nonatomic, copy)NSString * loadedImageName;    /**< 空状态下显示图片 */
-@property (nonatomic, copy)NSString *descriptionText;     /**< 空状态下的文字详情 */
+
+@property (nonatomic, copy) NSString * descriptionText;
 @property (nonatomic, copy)NSString *buttonText;          /**< 刷新按钮文字 */
 @property (nonatomic, strong) UIColor *buttonNormalColor;  /**< 按钮Normal状态下文字颜色 */
 @property (nonatomic, strong) UIColor *buttonHighlightColor; /**<  按钮Highlight状态下文字颜色 */
