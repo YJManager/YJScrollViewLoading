@@ -22,7 +22,7 @@
     
     YJMainViewController * mainVc = [[YJMainViewController alloc] initWithNibName:@"YJMainViewController" bundle:nil];
     UINavigationController * mainNav = [[UINavigationController alloc] initWithRootViewController:mainVc];
-    [mainNav.navigationBar setBackgroundImage:[self imageWithColor_Ext:[UIColor greenColor]] forBarMetrics:UIBarMetricsDefault];
+    [mainNav.navigationBar setBackgroundImage:[self imageWithColor_Ext:[UIColor grayColor]] forBarMetrics:UIBarMetricsDefault];
     self.window.rootViewController = mainNav;
     
     [self.window makeKeyAndVisible];

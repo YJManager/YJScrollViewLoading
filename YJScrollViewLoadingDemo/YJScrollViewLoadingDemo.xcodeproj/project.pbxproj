@@ -19,6 +19,7 @@
 		63390A751D9E49B7005A4848 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63390A731D9E49B7005A4848 /* Main.storyboard */; };
 		63390A771D9E49B7005A4848 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63390A761D9E49B7005A4848 /* Assets.xcassets */; };
 		63390A7A1D9E49B7005A4848 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63390A781D9E49B7005A4848 /* LaunchScreen.storyboard */; };
+		63C532BA1DAA9AF600D85DAC /* UICollectionView+YJEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C532B91DAA9AF600D85DAC /* UICollectionView+YJEmpty.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,8 @@
 		63390A761D9E49B7005A4848 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		63390A791D9E49B7005A4848 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		63390A7B1D9E49B7005A4848 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63C532B81DAA9AF600D85DAC /* UICollectionView+YJEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+YJEmpty.h"; sourceTree = "<group>"; };
+		63C532B91DAA9AF600D85DAC /* UICollectionView+YJEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+YJEmpty.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,13 +88,15 @@
 		6338BDA11DA8E58E00238C02 /* YJScrollViewLoading */ = {
 			isa = PBXGroup;
 			children = (
-				630D4E7D1DA9E07D00E40E3D /* Category */,
-				630D4E801DA9E07D00E40E3D /* View */,
 				6338BDA21DA8E5B200238C02 /* UIScrollView+YJEmpty.h */,
 				6338BDA31DA8E5B200238C02 /* UIScrollView+YJEmpty.m */,
 				630D4E851DA9E0A500E40E3D /* UITableView+YJEmpty.h */,
 				630D4E861DA9E0A500E40E3D /* UITableView+YJEmpty.m */,
+				63C532B81DAA9AF600D85DAC /* UICollectionView+YJEmpty.h */,
+				63C532B91DAA9AF600D85DAC /* UICollectionView+YJEmpty.m */,
 				630D4E881DA9E13200E40E3D /* YJScrollViewLoading.h */,
+				630D4E7D1DA9E07D00E40E3D /* Category */,
+				630D4E801DA9E07D00E40E3D /* View */,
 			);
 			path = YJScrollViewLoading;
 			sourceTree = "<group>";
@@ -220,6 +225,7 @@
 				630D4E841DA9E07D00E40E3D /* YJEmptyDataView.m in Sources */,
 				6338BDA41DA8E5B200238C02 /* UIScrollView+YJEmpty.m in Sources */,
 				63390A6C1D9E49B7005A4848 /* main.m in Sources */,
+				63C532BA1DAA9AF600D85DAC /* UICollectionView+YJEmpty.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
