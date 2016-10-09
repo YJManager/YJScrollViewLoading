@@ -18,7 +18,6 @@ static char const * const kButtonHighlightColorKey  =  "kButtonHighlightColorKey
 static char const * const kDataVerticalOffsetKey    =  "kDataVerticalOffsetKey";
 static char const * const kTapBlockKey              =  "kTapBlockKey";
 
-
 @implementation UITableView (YJEmpty)
 
 //+ (void)load{
@@ -43,11 +42,11 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
 //    [self swiz_init];
 //}
 
-#pragma mark - Setter 
-- (void)setLoading:(BOOL)loading{
-    if (self.loading == loading) return;
+#pragma mark - Setter
+- (void)setInstallYJLoading:(BOOL)installYJLoading{
+    if (self.installYJLoading == installYJLoading) return;
     
-    objc_setAssociatedObject(self, kLoadingKey, @(loading), OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, kLoadingKey, @(installYJLoading), OBJC_ASSOCIATION_ASSIGN);
     
     self.emptyDataSource = self;
     self.emptyDelegate = self;
@@ -84,8 +83,9 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
 }
 
 #pragma mark - Getter
--(BOOL)loading{
+- (BOOL)installYJLoading{
     return [objc_getAssociatedObject(self, kLoadingKey) boolValue];
+
 }
 
 - (didTapActionBlock)tapBlock{
@@ -113,7 +113,7 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
 
 #pragma mark - YJEmptyDataSetSource
 - (UIView *)emptyViewWithCustomViewInView:(UIScrollView *)scrollView{
-    if (self.loading) {
+    if (self.installYJLoading) {
         UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         [activityView startAnimating];
         return activityView;
@@ -123,7 +123,7 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
 }
 
 - (UIImage *)emptyViewImageInView:(UIScrollView *)scrollView{
-    if (self.loading) {
+    if (self.installYJLoading) {
         return nil;
     }else {
         NSString *imageName = @"noDataDefault.png";
@@ -135,7 +135,7 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
 }
 
 - (NSAttributedString *)emptyViewTitleInView:(UIScrollView *)scrollView{
-    if (self.loading) {
+    if (self.installYJLoading) {
         return nil;
     }else {
         
@@ -154,7 +154,7 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
 }
 
 - (NSAttributedString *)emptyViewDetailInView:(UIScrollView *)scrollView{
-    if (self.loading) {
+    if (self.installYJLoading) {
         return nil;
     }else {
         NSString *text = @"没有数据！您可以尝试重新获取";
@@ -174,7 +174,7 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
 }
 
 - (NSAttributedString *)emptyViewButtonTitleInView:(UIScrollView *)scrollView forState:(UIControlState)state{
-    if (self.loading) {
+    if (self.installYJLoading) {
         return nil;
     }else {
         UIColor *textColor = nil;
@@ -205,7 +205,7 @@ static char const * const kTapBlockKey              =  "kTapBlockKey";
 }
 - (BOOL)emptyViewShouldAllowTouchInView:(UIScrollView *)scrollView{
     // 只有非加载状态能交互
-    return !self.loading;
+    return !self.installYJLoading;
 }
 - (BOOL)emptyViewShouldAllowScrollInView:(UIScrollView *)scrollView{
     return NO;

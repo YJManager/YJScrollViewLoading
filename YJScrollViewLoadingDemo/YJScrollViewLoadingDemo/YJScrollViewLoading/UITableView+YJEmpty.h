@@ -4,17 +4,16 @@
 //
 //  Created by YJHou on 14/8/13.
 //  Copyright © 2014年 YJBSH. All rights reserved.
-//
+//  TableView的Loading相关设置
 
 #import <UIKit/UIKit.h>
 #import "UIScrollView+YJEmpty.h"
-
 
 typedef void (^didTapActionBlock)();
 
 @interface UITableView (YJEmpty) <YJEmptyDataSource, YJEmptyDelegate>
 
-@property (nonatomic, assign) BOOL loading;
+@property (nonatomic, assign) BOOL installYJLoading; /**< YES is install YJLoading */
 
 @property (nonatomic, copy)NSString * loadedImageName;    /**< 空状态下显示图片 */
 @property (nonatomic, copy)NSString *descriptionText;     /**< 空状态下的文字详情 */
