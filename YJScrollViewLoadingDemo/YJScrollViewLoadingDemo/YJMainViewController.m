@@ -84,8 +84,29 @@
                 [self.dataSouce addObject:[NSString stringWithFormat:@"终于有数据的了...%d", i]];
             }
         }else {// 无数据时
+//            self.tableView.loading = NO;
+        }
+        
+        NSInteger items = 0;
+        UITableView * tableView = (UITableView *)self.tableView;
+        id <UITableViewDataSource> dataSource = tableView.dataSource;
+        
+        NSInteger sections = 1;
+        
+        if (dataSource && [dataSource respondsToSelector:@selector(numberOfSectionsInTableView:)]) {
+            sections = [dataSource numberOfSectionsInTableView:tableView];
+        }
+        
+        if (dataSource && [dataSource respondsToSelector:@selector(tableView:numberOfRowsInSection:)]) {
+            for (NSInteger section = 0; section < sections; section++) {
+                items += [dataSource tableView:tableView numberOfRowsInSection:section];
+            }
+        }
+
+        if (items == 0) {
             self.tableView.loading = NO;
         }
+        
         [self.tableView reloadData];
     });
 }
