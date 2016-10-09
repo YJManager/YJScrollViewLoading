@@ -105,7 +105,13 @@
     return self.dataSouce.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ID"];
+    static NSString * loadingCellId = @"loadingCellId";
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:loadingCellId];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:loadingCellId];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
     cell.textLabel.text = self.dataSouce[indexPath.row];
     return cell;
 }
