@@ -44,15 +44,6 @@
     self.tableView.tableFooterView = [UIView new];
     [self loadingData:NO];
     
-//    // 配置参数
-//        self.tableView.buttonText = @"再次请求";
-//        self.tableView.buttonNormalColor = [UIColor redColor];
-//        self.tableView.buttonHighlightColor = [UIColor yellowColor];
-//        self.tableView.loadedImageName = @"noDataDefault.png";
-//        self.tableView.descriptionText = @"你可以尝试再次请求";
-//        self.tableView.dataVerticalOffset = 100;
-    
-    // 点击响应
     [self.tableView loadingWithTapBlock:^{
         NSLog(@"重新加载...");
         [self loadingData:NO];

@@ -149,6 +149,7 @@ static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
         UILabel * loading = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 15)];
         loading.textAlignment = NSTextAlignmentCenter;
         loading.text = @"加载中...";
+        loading.textColor = [UIColor lightGrayColor];
         loading.font = [UIFont systemFontOfSize:11.0f];
         
         CGPoint center = emptyView.center;
