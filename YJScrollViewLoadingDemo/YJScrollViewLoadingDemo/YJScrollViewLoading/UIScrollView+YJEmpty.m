@@ -2,8 +2,8 @@
 //  UIScrollView+YJEmpty.m
 //  YJPalmNews
 //
-//  Created by YJHou on 14/8/13.
-//  Copyright © 2014年 YJBSH. All rights reserved.
+//  Created by YJHou on 14/1/13.
+//  Copyright © 2014年 YJManager. All rights reserved.
 //
 
 #import "UIScrollView+YJEmpty.h"
@@ -25,39 +25,32 @@ static char const * const kEmptyDataView   =     "emptyDataView";
 
 #pragma mark - Setter (Public)
 - (void)setEmptyDataSource:(id<YJEmptyDataSource>)emptyDataSource{
-    if (emptyDataSource == nil || ![self _canDisplay]) {
-        [self _invalidate];
-    }
+    
+    if (emptyDataSource == nil || ![self _canDisplay]) { [self _invalidate];}
+    
     objc_setAssociatedObject(self, kEmptyDataSource, emptyDataSource, OBJC_ASSOCIATION_ASSIGN);
+    
     [self swizzleIfPossible:@selector(reloadData)];
+    
     if ([self isKindOfClass:[UITableView class]]) {
         [self swizzleIfPossible:@selector(endUpdates)];
     }
 }
-
-- (void)setEmptyDelegate:(id<YJEmptyDelegate>)emptyDelegate{
-    if (emptyDelegate == nil) {
-        [self _invalidate];
-    }
-    objc_setAssociatedObject(self, kEmptyDelegate, emptyDelegate, OBJC_ASSOCIATION_ASSIGN);
-}
-
-- (void)setEmptyDataView:(YJEmptyDataView *)emptyDataView{
-    objc_setAssociatedObject(self, kEmptyDataView, emptyDataView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-#pragma mark - Getters (Private)
 - (id<YJEmptyDataSource>)emptyDataSource{
     return objc_getAssociatedObject(self, kEmptyDataSource);
+}
+
+- (void)setEmptyDelegate:(id<YJEmptyDelegate>)emptyDelegate{
+    if (emptyDelegate == nil) { [self _invalidate]; }
+    objc_setAssociatedObject(self, kEmptyDelegate, emptyDelegate, OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (id<YJEmptyDelegate>)emptyDelegate{
     return objc_getAssociatedObject(self, kEmptyDelegate);
 }
 
-- (BOOL)isEmptyViewVisible{
-    YJEmptyDataView * view = objc_getAssociatedObject(self, kEmptyDataView);
-    return view?!view.hidden:NO;
+- (void)setEmptyDataView:(YJEmptyDataView *)emptyDataView{
+    objc_setAssociatedObject(self, kEmptyDataView, emptyDataView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (YJEmptyDataView *)emptyDataView{
@@ -75,6 +68,11 @@ static char const * const kEmptyDataView   =     "emptyDataView";
     return view;
 }
 
+- (BOOL)isEmptyViewVisible{
+    YJEmptyDataView * view = objc_getAssociatedObject(self, kEmptyDataView);
+    return view?!view.hidden:NO;
+}
+
 - (void)_invalidate{
     [self _willDisappear];
     if (self.emptyDataView) {
@@ -87,14 +85,13 @@ static char const * const kEmptyDataView   =     "emptyDataView";
 }
 
 
-#pragma mark - Reload APIs (Private)
 - (void)_reloadEmptyView{
     if (![self _canDisplay]) return;
     
     if ([self shouldDisplay] && [self _itemsCount] == 0){
         [self _willAppear];
         YJEmptyDataView *view = self.emptyDataView;
-        if (!view.superview) {
+        if (view.superview == nil) {
             if (([self isKindOfClass:[UITableView class]] || [self isKindOfClass:[UICollectionView class]]) && self.subviews.count > 1) {
                 [self insertSubview:view atIndex:0];
             }else {
@@ -104,19 +101,18 @@ static char const * const kEmptyDataView   =     "emptyDataView";
         
         [view prepareForReuse];
         
-        UIView *customView = [self emptyCustomView];
-        
+        UIView * customView = [self emptyCustomView];
         if (customView) {
             view.customView = customView;
         }else {
-            NSAttributedString *titleLabelString = [self titleLabelString];
-            NSAttributedString *detailLabelString = [self detailLabelString];
+            NSAttributedString * titleLabelString = [self titleLabelString];
+            NSAttributedString * detailLabelString = [self detailLabelString];
             
-            UIImage *buttonImage = [self buttonImageForState:UIControlStateNormal];
+            UIImage * buttonImage = [self buttonImageForState:UIControlStateNormal];
             NSAttributedString *buttonTitle = [self buttonTitleForState:UIControlStateNormal];
             
-            UIImage *image = [self topImage];
-            UIColor *imageTintColor = [self imageTintColor];
+            UIImage * image = [self topImage];
+            UIColor * imageTintColor = [self imageTintColor];
             UIImageRenderingMode renderingMode = imageTintColor?UIImageRenderingModeAlwaysTemplate:UIImageRenderingModeAlwaysOriginal;
             
             view.verticalSpace = [self verticalSpace];
@@ -126,17 +122,13 @@ static char const * const kEmptyDataView   =     "emptyDataView";
                     view.imageView.image = [image imageWithRenderingMode:renderingMode];
                     view.imageView.tintColor = imageTintColor;
                 }else {
-                    @throw [NSException exceptionWithName:@"YJEmpty Error" reason:@"Version is too low, Minimum support iOS 7" userInfo:nil];
+                    @throw [NSException exceptionWithName:@"YJEmptyLoading Error" reason:@"Version is too low, Minimum support iOS 7" userInfo:nil];
                 }
             }
             
-            if (titleLabelString) {
-                view.titleLabel.attributedText = titleLabelString;
-            }
+            if (titleLabelString) { view.titleLabel.attributedText = titleLabelString; }
             
-            if (detailLabelString) {
-                view.detailLabel.attributedText = detailLabelString;
-            }
+            if (detailLabelString) { view.detailLabel.attributedText = detailLabelString; }
             
             if (buttonImage) {
                 [view.button setImage:buttonImage forState:UIControlStateNormal];
@@ -203,7 +195,7 @@ static char const * const kEmptyDataView   =     "emptyDataView";
     [self _reloadEmptyView];
 }
 
-// >>>>>>>>>> Setting Support>>>>>>>>>>>>>>>>
+// >>>>>>>>>> Setting Support <<<<<<<<<<<<
 - (BOOL)_canDisplay{
     if (self.emptyDataSource && [self.emptyDataSource conformsToProtocol:@protocol(YJEmptyDataSource)]) {
         // 备用支持UITableView、UICollectionView、UIScrollView类型
@@ -257,18 +249,24 @@ static char const * const kEmptyDataView   =     "emptyDataView";
 
 // >>>>>>>>>>>> Method Swizzling >>>>>>>>>>>>>>>>
 static NSMutableDictionary *_impLookupTable;
-static NSString * const YJSwizzleInfoPointerKey = @"pointer";
-static NSString * const YJSwizzleInfoOwnerKey = @"owner";
-static NSString * const YJSwizzleInfoSelectorKey = @"selector";
+static NSString * const YJSwizzleInfoPointerKey  = @"YJSwizzleInfoPointerKey";
+static NSString * const YJSwizzleInfoOwnerKey    = @"YJSwizzleInfoOwnerKey";
+static NSString * const YJSwizzleInfoSelectorKey = @"YJSwizzleInfoSelectorKey";
 
 void _original_implementation(id self, SEL _cmd){
+    
     NSString * key = [self _getImplementationKeyWithTarget:self selector:_cmd];
-    NSDictionary *swizzleInfo = [_impLookupTable objectForKey:key];
-    NSValue *impValue = [swizzleInfo valueForKey:YJSwizzleInfoPointerKey];
+    
+    NSDictionary * swizzleInfo = [_impLookupTable objectForKey:key];
+    
+    NSValue * impValue = [swizzleInfo valueForKey:YJSwizzleInfoPointerKey];
+    
     IMP impPointer = [impValue pointerValue];
+    
     [self _reloadEmptyView];
+    
     if (impPointer) {
-        ((void(*)(id,SEL))impPointer)(self,_cmd);
+        ((void(*)(id, SEL))impPointer)(self, _cmd);
     }
 }
 
@@ -321,7 +319,7 @@ void _original_implementation(id self, SEL _cmd){
 }
 
 
-// >>>>>>>>> DataSource >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// >>>>>>>>> DataSource Getters <<<<<<<<<<<<<<<<<<<<
 #pragma mark - DataSource Getters (Private)
 - (UIImage *)topImage{
     if (self.emptyDataSource && [self.emptyDataSource respondsToSelector:@selector(emptyViewImageInView:)]) {
@@ -427,44 +425,42 @@ void _original_implementation(id self, SEL _cmd){
     }
     return 0.0;
 }
-
-
-#pragma mark - DelegateGetters &E vents (Private)
 - (BOOL)shouldFadeIn {
-    if (self.emptyDelegate && [self.emptyDelegate respondsToSelector:@selector(emptyViewShouldFadeInInView:)]) {
-        return [self.emptyDelegate emptyViewShouldFadeInInView:self];
+    if (self.emptyDataSource && [self.emptyDataSource respondsToSelector:@selector(emptyViewShouldFadeInInView:)]) {
+        return [self.emptyDataSource emptyViewShouldFadeInInView:self];
     }
     return YES;
 }
 
 - (BOOL)shouldDisplay{
-    if (self.emptyDelegate && [self.emptyDelegate respondsToSelector:@selector(emptyViewShouldDisplayInView:)]) {
-        return [self.emptyDelegate emptyViewShouldDisplayInView:self];
+    if (self.emptyDataSource && [self.emptyDataSource respondsToSelector:@selector(emptyViewShouldDisplayInView:)]) {
+        return [self.emptyDataSource emptyViewShouldDisplayInView:self];
     }
     return YES;
 }
 
 - (BOOL)isTouchAllowed{
-    if (self.emptyDelegate && [self.emptyDelegate respondsToSelector:@selector(emptyViewShouldAllowTouchInView:)]) {
-        return [self.emptyDelegate emptyViewShouldAllowTouchInView:self];
+    if (self.emptyDataSource && [self.emptyDataSource respondsToSelector:@selector(emptyViewIsAllowTouchInView:)]) {
+        return [self.emptyDataSource emptyViewIsAllowTouchInView:self];
     }
     return YES;
 }
 
 - (BOOL)isScrollAllowed{
-    if (self.emptyDelegate && [self.emptyDelegate respondsToSelector:@selector(emptyViewShouldAllowScrollInView:)]) {
-        return [self.emptyDelegate emptyViewShouldAllowScrollInView:self];
+    if (self.emptyDataSource && [self.emptyDataSource respondsToSelector:@selector(emptyViewIsAllowScrollInView:)]) {
+        return [self.emptyDataSource emptyViewIsAllowScrollInView:self];
     }
     return NO;
 }
 
 - (BOOL)isImageViewAnimateAllowed{
-    if (self.emptyDelegate && [self.emptyDelegate respondsToSelector:@selector(emptyViewShouldAnimateImageViewInView:)]) {
-        return [self.emptyDelegate emptyViewShouldAnimateImageViewInView:self];
+    if (self.emptyDataSource && [self.emptyDataSource respondsToSelector:@selector(emptyViewIsAllowAnimateImageViewInView:)]) {
+        return [self.emptyDataSource emptyViewIsAllowAnimateImageViewInView:self];
     }
     return NO;
 }
 
+#pragma mark - Delegate (Private)
 - (void)_willAppear{
     if (self.emptyDelegate && [self.emptyDelegate respondsToSelector:@selector(emptyViewWillAppearInView:)]) {
         [self.emptyDelegate emptyViewWillAppearInView:self];
@@ -502,5 +498,3 @@ void _original_implementation(id self, SEL _cmd){
 }
 
 @end
-
-

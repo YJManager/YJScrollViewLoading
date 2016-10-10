@@ -246,14 +246,16 @@ static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
 -(BOOL)emptyViewShouldDisplayInView:(UIScrollView *)scrollView{
     return YES;
 }
-- (BOOL)emptyViewShouldAllowTouchInView:(UIScrollView *)scrollView{
-    // 只有非加载状态能交互
+
+- (BOOL)emptyViewIsAllowTouchInView:(UIScrollView *)scrollView{
     return !self.installYJLoading;
 }
-- (BOOL)emptyViewShouldAllowScrollInView:(UIScrollView *)scrollView{
+
+- (BOOL)emptyViewIsAllowScrollInView:(UIScrollView *)scrollView{
     return NO;
 }
-- (BOOL)emptyViewShouldAnimateImageViewInView:(UIScrollView *)scrollView{
+
+- (BOOL)emptyViewIsAllowAnimateImageViewInView:(UIScrollView *)scrollView{
     return YES;
 }
 
@@ -265,9 +267,7 @@ static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
 }
 
 + (void)load{
-    
     [self exchangeOriginalSelector:@selector(reloadData) newSelector:@selector(reloadDataYJLoading) isClassMethod:NO];
-
 }
 
 + (void)exchangeOriginalSelector:(SEL)originalSelector newSelector:(SEL)newSelector isClassMethod:(BOOL)isClassMethod{
