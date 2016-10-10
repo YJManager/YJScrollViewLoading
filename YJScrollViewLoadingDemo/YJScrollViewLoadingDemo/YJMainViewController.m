@@ -44,7 +44,7 @@
     self.tableView.tableFooterView = [UIView new];
     [self loadingData:NO];
     
-    [self.tableView loadingWithTapBlock:^{
+    [self.tableView loadingWithClickBlock:^{
         NSLog(@"重新加载...");
         [self loadingData:NO];
     }];

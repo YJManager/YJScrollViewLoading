@@ -94,8 +94,6 @@ static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
     return objc_getAssociatedObject(self, kButtonTitleKey);
 }
 
-// 6.>>>>>> kButtonNormalColorKey <<<<<<
-
 -(void)setButtonNormalColor:(UIColor *)buttonNormalColor{
     objc_setAssociatedObject(self, kButtonNormalColorKey, buttonNormalColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
@@ -103,7 +101,6 @@ static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
     return objc_getAssociatedObject(self, kButtonNormalColorKey);
 }
 
-// 7.>>>>>>>>> kButtonHighlightColorKey <<<<<
 -(void)setButtonHighlightColor:(UIColor *)buttonHighlightColor{
     objc_setAssociatedObject(self, kButtonHighlightColorKey, buttonHighlightColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
@@ -111,7 +108,6 @@ static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
     return objc_getAssociatedObject(self, kButtonHighlightColorKey);
 }
 
-// 8.>>>>>>>>> kVOffsetForNoDataViewKey <<<<<
 - (void)setVerticalOffsetForNoDataView:(CGFloat)verticalOffsetForNoDataView{
     objc_setAssociatedObject(self, kVOffsetForNoDataViewKey, @(verticalOffsetForNoDataView),OBJC_ASSOCIATION_RETAIN);
 }
@@ -119,7 +115,6 @@ static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
     return [objc_getAssociatedObject(self, kVOffsetForNoDataViewKey) floatValue];
 }
 
-// 9.>>>>>>>>> kreloadClickBlockKey <<<<<
 - (void)setTapBlock:(reloadClickActionBlock)tapBlock{
     objc_setAssociatedObject(self, kreloadClickBlockKey, tapBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
@@ -128,7 +123,7 @@ static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
 }
 
 #pragma mark - Public API
-- (void)loadingWithTapBlock:(reloadClickActionBlock)block{
+- (void)loadingWithClickBlock:(reloadClickActionBlock)block{
     if (self.tapBlock) {
         block = self.tapBlock;
     }
@@ -136,7 +131,7 @@ static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
 }
 
 
-#pragma mark - YJEmptyDataSetSource
+#pragma mark - YJEmptyDataSource
 - (UIView *)emptyViewWithCustomViewInView:(UIScrollView *)scrollView{
     if (self.installYJLoading) {
         
@@ -167,7 +162,7 @@ static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
     if (self.installYJLoading) {
         return nil;
     }else {
-        NSString *imageName = @"noDataDefault.png";
+        NSString * imageName = @"noDataDefault.png";
         if (self.loadedImageName) {
             imageName = self.loadedImageName;
         }
@@ -179,12 +174,11 @@ static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
     if (self.installYJLoading) {
         return nil;
     }else {
-        
-        NSString *text = @"没有数据";
+        NSString * text = @"暂时无法获取到数据";
         if (self.titleForNoDataView) {
             text = self.titleForNoDataView;
         }
-        NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
+        NSMutableParagraphStyle * paragraph = [NSMutableParagraphStyle new];
         paragraph.lineBreakMode = NSLineBreakByWordWrapping;
         paragraph.alignment = NSTextAlignmentCenter;
         
@@ -200,15 +194,15 @@ static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
     if (self.installYJLoading) {
         return nil;
     }else {
-        NSString *text = @"没有数据！您可以尝试重新获取";
+        NSString * text = @"没有数据！您可以尝试重新获取";
         if (self.detailForNoDataView) {
             text = self.detailForNoDataView;
         }
-        NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
+        NSMutableParagraphStyle * paragraph = [NSMutableParagraphStyle new];
         paragraph.lineBreakMode = NSLineBreakByWordWrapping;
         paragraph.alignment = NSTextAlignmentCenter;
         
-        NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0f],
+        NSDictionary * attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0f],
                                      NSForegroundColorAttributeName: [UIColor lightGrayColor],
                                      NSParagraphStyleAttributeName: paragraph};
         
@@ -220,18 +214,15 @@ static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
     if (self.installYJLoading) {
         return nil;
     }else {
-        UIColor *textColor = nil;
-        // 某种状态下的颜色
-        UIColor *colorOne = [UIColor colorWithRed:253/255.0f green:120/255.0f blue:76/255.0f alpha:1];
-        UIColor *colorTow = [UIColor colorWithRed:247/255.0f green:188/255.0f blue:169/255.0f alpha:1];
-        // 判断外部是否有设置
-        colorOne = self.buttonNormalColor ? self.buttonNormalColor : colorOne;
-        colorTow = self.buttonHighlightColor ? self.buttonHighlightColor : colorTow;
-        textColor = state == UIControlStateNormal ? colorOne : colorTow;
+        
+        UIColor * textNormalColor = self.buttonNormalColor?self.buttonNormalColor:[UIColor redColor];
+        UIColor * textHighlightColor = self.buttonHighlightColor?self.buttonHighlightColor:[UIColor orangeColor];
+        UIColor * textColor = (state == UIControlStateNormal)?textNormalColor:textHighlightColor;
+        
         NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:16.0f],
                                      NSForegroundColorAttributeName: textColor};
         
-        return [[NSAttributedString alloc] initWithString:self.buttonTitle ? self.buttonTitle : @"再次刷新" attributes:attributes];
+        return [[NSAttributedString alloc] initWithString:self.buttonTitle?self.buttonTitle:@"再次刷新" attributes:attributes];
     }
 }
 
@@ -241,8 +232,7 @@ static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
     }
     return 0.0;
 }
-#pragma mark - YJEmptyDataSetDelegate Methods
-// 返回是否显示空状态的所有组件，默认:YES
+
 -(BOOL)emptyViewShouldDisplayInView:(UIScrollView *)scrollView{
     return YES;
 }
@@ -259,6 +249,7 @@ static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
     return YES;
 }
 
+#pragma mark - YJEmptyDataSetDelegate
 - (void)emptyViewInView:(UIScrollView *)scrollView didClickButton:(UIButton *)button{
     if (self.tapBlock) {
         self.tapBlock();
@@ -267,10 +258,10 @@ static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
 }
 
 + (void)load{
-    [self exchangeOriginalSelector:@selector(reloadData) newSelector:@selector(reloadDataYJLoading) isClassMethod:NO];
+    [self _exchangeOriginalSelector:@selector(reloadData) newSelector:@selector(reloadDataYJLoading) isClassMethod:NO];
 }
 
-+ (void)exchangeOriginalSelector:(SEL)originalSelector newSelector:(SEL)newSelector isClassMethod:(BOOL)isClassMethod{
++ (void)_exchangeOriginalSelector:(SEL)originalSelector newSelector:(SEL)newSelector isClassMethod:(BOOL)isClassMethod{
     
     Class cls = [self class];
     Method originalMethod;

@@ -30,6 +30,6 @@ typedef void (^reloadClickActionBlock)();
 /** tableView Center Offset */
 @property (nonatomic, assign) CGFloat verticalOffsetForNoDataView;
 
-- (void)loadingWithTapBlock:(reloadClickActionBlock)block;
+- (void)loadingWithClickBlock:(reloadClickActionBlock)block;
 
 @end
