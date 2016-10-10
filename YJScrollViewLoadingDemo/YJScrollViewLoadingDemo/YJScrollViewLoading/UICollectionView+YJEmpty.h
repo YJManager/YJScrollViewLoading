@@ -1,9 +1,9 @@
 //
-//  UICollectionView+YJEmpty.h
-//  YJScrollViewLoadingDemo
+//  UITableView+YJEmpty.h
+//  YJPalmNews
 //
-//  Created by YJHou on 14/8/13.
-//  Copyright © 2014年 YJBSH. All rights reserved.
+//  Created by YJHou on 14/1/13.
+//  Copyright © 2014年 YJManager. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

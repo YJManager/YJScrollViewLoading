@@ -1,9 +1,9 @@
 //
-//  YJScrollViewLoading.h
-//  YJScrollViewLoadingDemo
+//  UITableView+YJEmpty.h
+//  YJPalmNews
 //
-//  Created by YJHou on 16/10/9.
-//  Copyright © 2016年 YJHou. All rights reserved.
+//  Created by YJHou on 14/1/13.
+//  Copyright © 2014年 YJManager. All rights reserved.
 //
 
 #ifndef YJScrollViewLoading_h
