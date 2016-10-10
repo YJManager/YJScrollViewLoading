@@ -264,5 +264,56 @@ static char const * const kreloadClickBlockKey      =  "kreloadClickBlockKey";
     }
 }
 
++ (void)load{
+    
+    [self exchangeOriginalSelector:@selector(reloadData) newSelector:@selector(reloadDataYJLoading) isClassMethod:NO];
+
+}
+
++ (void)exchangeOriginalSelector:(SEL)originalSelector newSelector:(SEL)newSelector isClassMethod:(BOOL)isClassMethod{
+    
+    Class cls = [self class];
+    Method originalMethod;
+    Method swizzledMethod;
+    
+    if (isClassMethod) {
+        originalMethod = class_getClassMethod(cls, originalSelector);
+        swizzledMethod = class_getClassMethod(cls, newSelector);
+    } else {
+        originalMethod = class_getInstanceMethod(cls, originalSelector);
+        swizzledMethod = class_getInstanceMethod(cls, newSelector);
+    }
+    
+    if (!originalMethod) {
+        return;
+    }
+    method_exchangeImplementations(originalMethod, swizzledMethod);
+}
+
+
+- (void)reloadDataYJLoading{
+    
+    NSInteger items = 0;
+    id <UITableViewDataSource> dataSource = self.dataSource;
+
+    NSInteger sections = 1;
+
+    if (dataSource && [dataSource respondsToSelector:@selector(numberOfSectionsInTableView:)]) {
+        sections = [dataSource numberOfSectionsInTableView:self];
+    }
+
+    if (dataSource && [dataSource respondsToSelector:@selector(tableView:numberOfRowsInSection:)]) {
+        for (NSInteger section = 0; section < sections; section++) {
+            items += [dataSource tableView:self numberOfRowsInSection:section];
+        }
+    }
+
+    if (items == 0) {
+        self.installYJLoading = NO;
+    }
+    
+    [self reloadDataYJLoading];
+}
+
 
 @end
